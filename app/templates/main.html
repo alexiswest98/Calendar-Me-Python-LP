@@ -10,6 +10,19 @@
 
 <body>
     <h1>Calendar working</h1>
+
+    <form action="/" method="post">
+        {{ form.hidden_tag() }}
+        <p>{{ form.name() }}</p>
+        <p>{{ form.start_date() }}</p>
+        <p>{{ form.start_time() }}</p>
+        <p>{{ form.end_date() }}</p>
+        <p>{{ form.end_time() }}</p>
+        <p>{{ form.description() }}</p>
+        <p>{{ form.private() }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+
     <table>
         <thead>
             <tr>
