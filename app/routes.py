@@ -55,5 +55,18 @@ def daily(year, month, day):
 
             appointment["end_datetime"] = datetime.strptime(
                 appointment["end_datetime"], '%Y-%m-%d %H:%M:%S').strftime("%H:%M")
-
-        return render_template("main.html", appointments=appointments, form=form)
+        times = [
+            ('first time', '8 AM'), 
+            ('middle time', '9 AM'), 
+            ('middle time', '10 AM'), 
+            ('middle time', '11 AM'), 
+            ('middle time', '12 AM'), 
+            ('middle time', '1 PM'), 
+            ('middle time', '2 PM'), 
+            ('middle time', '3 PM'), 
+            ('middle time', '4 PM'), 
+            ('middle time', '5 PM'), 
+            ('middle time', '6 PM'), 
+            ('middle time', '7 PM'), 
+            ('last time', '8 PM')]
+        return render_template("main.html", appointments=appointments, form=form, times=times)

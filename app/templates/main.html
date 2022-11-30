@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/static/styles/calendar.css">
 </head>
 
 <body>
@@ -28,13 +29,28 @@
     <div>
         <!-- {{ form.end_date.label }} {{ form.end_date }} -->
         {% if form.end_date.errors %}
-          <ul class="errors">
+        <ul class="errors">
             {% for error in form.end_date.errors %}
-              <li>{{ error }}</li>
-              {% endfor %}
-          </ul>
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
         {% endif %}
-      </div>
+    </div>
+
+    <div class="whole-table">
+        {% for time in times %}
+        <div>
+            <div class="{{time[0]}}">
+                <div>{{time[1]}}</div>
+            </div>
+            <div class="appt-cont">
+                <div class="appt">
+                    Instructional Touchpoint, 9am
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 
 
     <table>
@@ -59,7 +75,7 @@
         </tbody>
     </table>
     <script>
-        let changeUrl = document.querySelector("#change-url") 
+        let changeUrl = document.querySelector("#change-url")
         changeUrl.addEventListener('change', e => {
             // console.log(e.target.value)
             const [year, month, day] = e.target.value.split("-")

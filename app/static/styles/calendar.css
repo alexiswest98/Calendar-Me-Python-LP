@@ -1,0 +1,49 @@
+
+
+.whole-table {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px rgb(201, 199, 199) solid;;
+}
+
+.whole-table > div {
+    display: flex;
+    height: 8vw;
+    border-bottom: 1px rgb(201, 199, 199) solid;
+
+}
+
+.time {
+    border-right: 1px rgb(201, 199, 199) solid;
+    width: 7vw;
+    margin-top: -1.2vw;
+    margin-right: -1vw;
+}
+
+.time > div {
+    background-color: rgb(255, 255, 255);
+    width: 70%;
+    padding-left: 1vw;
+    color: rgb(119, 118, 118);
+    font-family: sans-serif;
+    font-size: small;
+}
+
+.appt-cont {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin-left: 1vw;
+}
+
+.appt {
+    color: rgb(239, 235, 235);
+    border-radius: 5px;
+    padding-top: 0.75%;
+    padding-bottom: 0.75%;
+    padding-left: 1.5%;
+    background-color: #1b9de2;
+    font-family: sans-serif;
+    font-size: 15px;
+
+}
