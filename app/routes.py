@@ -1,19 +1,18 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect
 import os
 import sqlite3
 from datetime import datetime
 from app.forms import AppointmentForm
 
+
 bp = Blueprint('main', __name__, url_prefix='/')
 
 DB_FILE = os.environ.get("DB_FILE")
-
 
 @bp.route("/", methods=['POST','GET'])
 def main():
     with sqlite3.connect(DB_FILE) as conn:
         form = AppointmentForm()
-        conn.row_factory = sqlite3.Row
         curs = conn.cursor()
         if form.validate_on_submit():
             new_appt = (
@@ -24,10 +23,30 @@ def main():
                 form.private.data
             )
 
-            sql = "INSERT INTO appointments (name, start_datetime, end_datetime, description, private) VALUES (?, ?, ?, ?, ?)"
+            sql = """INSERT INTO appointments (name, start_datetime, end_datetime, description, private) 
+                    VALUES (?, ?, ?, ?, ?)
+                    """
             curs.execute(sql, new_appt)
+            # return redirect("/")
+        
+    today = datetime.now()
+    return redirect(f"/{today.year}/{today.month}/{today.day}")
 
-        curs.execute("SELECT * FROM appointments")
+
+@bp.route("/<year>/<month>/<day>", methods=['POST','GET'])
+def daily(year, month, day):
+    with sqlite3.connect(DB_FILE) as conn:
+        form = AppointmentForm()
+        conn.row_factory = sqlite3.Row
+        curs = conn.cursor()
+
+        date_string = f"{year}-{month}-{day}"
+        print(date_string)
+
+        curs.execute("""SELECT * FROM appointments
+                        WHERE DATE(start_datetime) = DATE(?)
+                        """, (date_string, ))
+
         appointments = [dict(row) for row in curs.fetchall()]
         for appointment in appointments:
 
