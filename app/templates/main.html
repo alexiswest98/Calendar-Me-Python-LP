@@ -1,13 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <h1>Calendar working</h1>
-    
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Start</th>
+                <th>End</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for appointment in appointments %}
+            <tr>
+                <td>{{appointment.name}}</td>
+                <td>{{appointment.start_datetime}}</td>
+                <td>{{appointment.end_datetime}}</td>
+            </tr>
+            <!-- loop here to create rows -->
+            <!-- use strftime to format date objects -->
+            <!-- loop here to create rows -->
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
+
 </html>
