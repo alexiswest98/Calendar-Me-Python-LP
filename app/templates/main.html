@@ -38,42 +38,20 @@
     </div>
 
     <div class="whole-table">
-        {% for time in times %}
+        {% for appt in appointments %}
         <div>
-            <div class="{{time[0]}}">
-                <div>{{time[1]}}</div>
+            <div class="{{appt.class}}">
+                <div>{{appt.time}}</div>
             </div>
             <div class="appt-cont">
                 <div class="appt">
-                    Instructional Touchpoint, 9am
+                    {{appt.appt}}
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
 
-
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Start</th>
-                <th>End</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for appointment in appointments %}
-            <tr>
-                <td>{{appointment.name}}</td>
-                <td>{{appointment.start_datetime}}</td>
-                <td>{{appointment.end_datetime}}</td>
-            </tr>
-            <!-- loop here to create rows -->
-            <!-- use strftime to format date objects -->
-            <!-- loop here to create rows -->
-            {% endfor %}
-        </tbody>
-    </table>
     <script>
         let changeUrl = document.querySelector("#change-url")
         changeUrl.addEventListener('change', e => {

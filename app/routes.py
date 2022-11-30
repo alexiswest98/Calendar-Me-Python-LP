@@ -9,7 +9,8 @@ bp = Blueprint('main', __name__, url_prefix='/')
 
 DB_FILE = os.environ.get("DB_FILE")
 
-@bp.route("/", methods=['POST','GET'])
+
+@bp.route("/", methods=['POST', 'GET'])
 def main():
     with sqlite3.connect(DB_FILE) as conn:
         form = AppointmentForm()
@@ -23,17 +24,17 @@ def main():
                 form.private.data
             )
 
-            sql = """INSERT INTO appointments (name, start_datetime, end_datetime, description, private) 
+            sql = """INSERT INTO appointments (name, start_datetime, end_datetime, description, private)
                     VALUES (?, ?, ?, ?, ?)
                     """
             curs.execute(sql, new_appt)
             # return redirect("/")
-        
+
     today = datetime.now()
     return redirect(f"/{today.year}/{today.month}/{today.day}")
 
 
-@bp.route("/<year>/<month>/<day>", methods=['POST','GET'])
+@bp.route("/<year>/<month>/<day>", methods=['POST', 'GET'])
 def daily(year, month, day):
     with sqlite3.connect(DB_FILE) as conn:
         form = AppointmentForm()
@@ -47,26 +48,40 @@ def daily(year, month, day):
                         WHERE DATE(start_datetime) = DATE(?)
                         """, (date_string, ))
 
-        appointments = [dict(row) for row in curs.fetchall()]
-        for appointment in appointments:
+        rows = [dict(row) for row in curs.fetchall()]
 
-            appointment["start_datetime"] = datetime.strptime(
-                appointment["start_datetime"], '%Y-%m-%d %H:%M:%S').strftime("%H:%M")
+        appointments = {
+            8:  {"class": 'first time', "time":  '8 AM', "appt": ''},
+            9:  {"class": 'middle time', "time":  '9 AM', "appt": ''},
+            10: {"class": 'middle time', "time": '10 AM', "appt": ''},
+            11: {"class": 'middle time', "time": '11 AM', "appt": ''},
+            12: {"class": 'middle time', "time": '12 AM', "appt": ''},
+            13: {"class": 'middle time', "time":  '1 PM', "appt": ''},
+            14: {"class": 'middle time', "time":  '2 PM', "appt": ''},
+            15: {"class": 'middle time', "time":  '3 PM', "appt": ''},
+            16: {"class": 'middle time', "time":  '4 PM', "appt": ''},
+            17: {"class": 'middle time', "time":  '5 PM', "appt": ''},
+            18: {"class": 'middle time', "time":  '6 PM', "appt": ''},
+            19: {"class": 'middle time', "time":  '7 PM', "appt": ''},
+            20: {"class": 'last time', "time":  '8 PM', "appt": ''}
+        }
 
-            appointment["end_datetime"] = datetime.strptime(
-                appointment["end_datetime"], '%Y-%m-%d %H:%M:%S').strftime("%H:%M")
-        times = [
-            ('first time', '8 AM'), 
-            ('middle time', '9 AM'), 
-            ('middle time', '10 AM'), 
-            ('middle time', '11 AM'), 
-            ('middle time', '12 AM'), 
-            ('middle time', '1 PM'), 
-            ('middle time', '2 PM'), 
-            ('middle time', '3 PM'), 
-            ('middle time', '4 PM'), 
-            ('middle time', '5 PM'), 
-            ('middle time', '6 PM'), 
-            ('middle time', '7 PM'), 
-            ('last time', '8 PM')]
-        return render_template("main.html", appointments=appointments, form=form, times=times)
+        for appointment in rows:
+
+            start_datetime = datetime.strptime(
+                appointment["start_datetime"], '%Y-%m-%d %H:%M:%S')
+            appointment["start_datetime"] = start_datetime.strftime("%H:%M")
+
+            end_datetime = datetime.strptime(
+                appointment["end_datetime"], '%Y-%m-%d %H:%M:%S')
+            appointment["end_datetime"] = end_datetime.strftime("%H:%M")
+
+            military_time = start_datetime.hour
+
+            appointments[military_time]["appt"] = appointment["name"]
+
+        appointments = appointments.values()
+
+        print("_"*50, appointments)
+
+        return render_template("main.html", appointments=appointments, form=form)
