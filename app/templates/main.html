@@ -11,6 +11,9 @@
 <body>
     <h1>Calendar working</h1>
 
+    <p>SELECT A DAY:</p>
+    <input type="date" id="change-url">
+
     <form action="/" method="post">
         {{ form.hidden_tag() }}
         <p>{{ form.name.label }} {{ form.name() }}</p>
@@ -55,6 +58,15 @@
             {% endfor %}
         </tbody>
     </table>
+    <script>
+        let changeUrl = document.querySelector("#change-url") 
+        changeUrl.addEventListener('change', e => {
+            // console.log(e.target.value)
+            const [year, month, day] = e.target.value.split("-")
+            window.location.replace(`/${year}/${month}/${day}`)
+        })
+
+    </script>
 </body>
 
 </html>
