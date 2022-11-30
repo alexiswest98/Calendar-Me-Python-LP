@@ -44,9 +44,11 @@
                 <div>{{appt.time}}</div>
             </div>
             <div class="appt-cont">
+                {% if appt.appt %}
                 <div class="appt">
                     {{appt.appt}}
                 </div>
+                {% endif %}
             </div>
         </div>
         {% endfor %}
