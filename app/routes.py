@@ -51,19 +51,19 @@ def daily(year, month, day):
         rows = [dict(row) for row in curs.fetchall()]
 
         appointments = {
-            8:  {"class": 'first time', "time":  '8 AM', "appt": ''},
-            9:  {"class": 'middle time', "time":  '9 AM', "appt": ''},
-            10: {"class": 'middle time', "time": '10 AM', "appt": ''},
-            11: {"class": 'middle time', "time": '11 AM', "appt": ''},
-            12: {"class": 'middle time', "time": '12 AM', "appt": ''},
-            13: {"class": 'middle time', "time":  '1 PM', "appt": ''},
-            14: {"class": 'middle time', "time":  '2 PM', "appt": ''},
-            15: {"class": 'middle time', "time":  '3 PM', "appt": ''},
-            16: {"class": 'middle time', "time":  '4 PM', "appt": ''},
-            17: {"class": 'middle time', "time":  '5 PM', "appt": ''},
-            18: {"class": 'middle time', "time":  '6 PM', "appt": ''},
-            19: {"class": 'middle time', "time":  '7 PM', "appt": ''},
-            20: {"class": 'last time', "time":  '8 PM', "appt": ''}
+            8:  {'lastclass': "something", "class": 'first time', "time":  '8 AM', "appt": ''},
+            9:  {'lastclass': "something", "class": 'middle time', "time":  '9 AM', "appt": ''},
+            10: {'lastclass': "something", "class": 'middle time', "time": '10 AM', "appt": ''},
+            11: {'lastclass': "something", "class": 'middle time', "time": '11 AM', "appt": ''},
+            12: {'lastclass': "something", "class": 'middle time', "time": '12 AM', "appt": ''},
+            13: {'lastclass': "something", "class": 'middle time', "time":  '1 PM', "appt": ''},
+            14: {'lastclass': "something", "class": 'middle time', "time":  '2 PM', "appt": ''},
+            15: {'lastclass': "something", "class": 'middle time', "time":  '3 PM', "appt": ''},
+            16: {'lastclass': "something", "class": 'middle time', "time":  '4 PM', "appt": ''},
+            17: {'lastclass': "something", "class": 'middle time', "time":  '5 PM', "appt": ''},
+            18: {'lastclass': "something", "class": 'middle time', "time":  '6 PM', "appt": ''},
+            19: {'lastclass': "something", "class": 'middle time', "time":  '7 PM', "appt": ''},
+            20: {'lastclass': "something lastclass", "class": 'last time', "time":  '8 PM', "appt": ''}
         }
 
         for appointment in rows:
